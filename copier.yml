@@ -1,0 +1,25 @@
+_subdirectory: template
+
+name:
+  type: str
+  help: A human-readable name for your new project
+
+snake:
+  type: str
+  help: A snake-case version of the project name
+  default: "{% from 'macros.jinja' import snakify %}{{ snakify(name) }}"
+
+slug:
+  type: str
+  help: A slug-case version of the project name
+  default: "{% from 'macros.jinja' import slugify %}{{ slugify(name) }}"
+
+pascal:
+  type: str
+  help: A pascal-case version of the project name
+  default: "{% from 'macros.jinja' import pascalfy %}{{ pascalfy(name) }}"
+
+exe:
+  type: bool
+  help: Shall the package contain an executable main module?
+  default: true
