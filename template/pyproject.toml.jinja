@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "{{ slug }}"
+version = "0.1.0"
+description = "{{ description }}"
+authors = [
+    {name = "{{ user }}", email = "{{ email }}"},
+]
+dependencies = [
+    {% if app %}"click>=8.1"{% endif %}
+]
+requires-python = ">=3.10"
+readme = "README.md"
+license = { text = "MIT" }
+
+[project.scripts]
+{{slug}} = "{{snake}}.__main__:main"
+
+[dependency-groups]
+dev = [
+    "go-task-bin>=3.40.0",
+    "ruff>=0.8.0",
+    "pre-commit>=4.0.0",
+]
+test = [
+    "pytest>=8.1.1",
+    "pytest-cov>=5.0.0",
+]
+docs = [
+    "mkdocs>=1.5.3",
+    "mike>=2.0.0",
+    "mkdocs-material>=9.5.18",
+    "mkdocstrings[python]>=0.24.3",
+    {% if app %}"mkdocs-click>=0.8.1",{% endif %}
+]

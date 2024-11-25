@@ -1,11 +1,14 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
-site_name: Project Placeholder
+site_name: {{ name }}
 
-# repo_name: <project name>
+repo_name: {{ slug }}
 # repo_url: https://github.com/<your project URI>
 
 nav:
   - Home: index.md
+  - References:
+    - CLI: references/cli.md
+    - API: references/api.md
 
 extra:
   version:
@@ -51,6 +54,7 @@ theme:
 
 plugins:
 - search
+{% if app %}- mkdocstrings{% endif %}
   
 markdown_extensions:
 
@@ -61,6 +65,7 @@ markdown_extensions:
   - def_list
   - footnotes
   - md_in_html
+{% if app %}  - mkdocs-click{% endif %}
   - toc:
       permalink: true
 

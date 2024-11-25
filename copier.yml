@@ -1,25 +1,42 @@
 _subdirectory: template
+_jinja_extensions:
+- copier_templates_extensions.TemplateExtensionLoader
+- extensions/git.py:GitExtension
+    
 
 name:
   type: str
-  help: A human-readable name for your new project
+  help: A human-readable name for your new project.
 
 snake:
   type: str
-  help: A snake-case version of the project name
-  default: "{% from 'macros.jinja' import snakify %}{{ snakify(name) }}"
+  help: The package name
+  default: "{{ name|lower|replace(' ', '_')|replace('-', '_') }}"
+  validator: >-
+    {% if not ( snake|regex_search('^[a-z]\w+$' )) %}
+    The package name must start with a letter, followed by one or more lower case letters, digits underscores.
+    {% endif %}
 
 slug:
   type: str
-  help: A slug-case version of the project name
-  default: "{% from 'macros.jinja' import slugify %}{{ slugify(name) }}"
+  help: The distributable/application name
+  default: "{{ snake|replace('_', '-') }}"
 
-pascal:
+description:
   type: str
-  help: A pascal-case version of the project name
-  default: "{% from 'macros.jinja' import pascalfy %}{{ pascalfy(name) }}"
+  help: A short project description
 
-exe:
+app:
   type: bool
   help: Shall the package contain an executable main module?
   default: true
+
+user:
+  type: str
+  help: Author's name
+  default: "{{ git_name() }}"
+
+email:
+  type: str
+  help: Author's e-Mail
+  default: "{{ git_mail() }}"
