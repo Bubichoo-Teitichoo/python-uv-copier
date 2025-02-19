@@ -36,3 +36,31 @@ docs = [
     "mkdocstrings[python]>=0.24.3",
     {% if app %}"mkdocs-click>=0.8.1",{% endif %}
 ]
+
+[tool.poe.tasks.lint]
+help = "Run code linters"
+ignore_fail = "return_non_zero"
+sequence = [
+    "ruff check src",
+    "ruff format src --check",
+    "mypy src",
+]
+
+[tool.poe.tasks.format]
+help = "Run code formatters"
+sequence = [
+    "ruff format src",
+    "ruff check src --select I --fix"
+]
+
+[tool.poe.tasks.bump]
+help = "Bump version"
+sequence = [
+    "cz bump",
+    "git-changelog",
+    "git commit --amend CHANGELOG.md",
+]
+
+[tool.poe.tasks.docs]
+help = "Run mkdocs live preview server."
+cmd = "mkdocs serve --open"
