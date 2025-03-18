@@ -37,6 +37,11 @@ docs = [
     {% if app %}"mkdocs-click>=0.8.1",{% endif %}
 ]
 
+[tool.git-changelog]
+convention = "conventional"
+provider = "github"
+output = "CHANGELOG.md"
+
 [tool.ruff]
 line-length = 120
 indent-width = 4
