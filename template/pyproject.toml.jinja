@@ -76,6 +76,10 @@ forced-separate = [
 quote-style = "double"
 indent-style = "space"
 
+[tool.mypy]
+python_version = "3.10"
+check_untyped_defs = true
+
 [tool.poe.tasks.lint]
 help = "Run code linters"
 ignore_fail = "return_non_zero"
