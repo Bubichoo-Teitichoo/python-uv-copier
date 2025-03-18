@@ -80,6 +80,13 @@ indent-style = "space"
 python_version = "3.10"
 check_untyped_defs = true
 
+[tool.poe.tasks.setup]
+help = "Setup the development environment"
+sequence = [
+    { cmd = "uv sync" },
+    { cmd = "uv run pre-commit install" },
+]
+
 [tool.poe.tasks.lint]
 help = "Run code linters"
 ignore_fail = "return_non_zero"
