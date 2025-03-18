@@ -3,30 +3,74 @@ default_install_hook_types:
 - commit-msg
 - post-checkout
 - post-merge
+- post-rewrite
 
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+        args: ["--markdown-linebreak-ext=md"]
+      - id: check-toml
+      - id: check-yaml
+      - id: check-merge-conflict
 
-- repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.6.0
-  hooks:
-  - id: check-ast
-  - id: check-merge-conflict
-  - id: end-of-file-fixer
-  - id: trailing-whitespace
-    args: ["--markdown-linebreak-ext=md"]
+  - repo: local
+    hooks:
+      - id: ruff-lint
+        name: ruff (lint)
+        description: check if the changed files pass the ruff linter
+        language: system
+        entry: uv run ruff check
+        types: [python]
+        stages:
+          - pre-commit
 
-# linting
-- repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.8.0
-  hooks:
-    - id: ruff
-    - id: ruff-format
+      - id: ruff-format
+        name: ruff (format)
+        description: check if the changed files pass the ruff formatter
+        language: system
+        entry: uv run ruff format
+        types: [python]
+        stages:
+          - pre-commit
 
-# static type checking
-- repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.13.0
-  hooks:
-  - id: mypy
-    files: ^src/
-    # additional_dependencies:
+      - id: ruff-isort
+        name: ruff (isort)
+        description: check if the changed files pass the ruff import sorter
+        language: system
+        entry: uv run ruff check --select I --fix
+        types: [python]
+        stages:
+          - pre-commit
+
+      - id: mypy
+        name: mypy
+        description: check if the changed files pass the mypy type checker
+        language: system
+        entry: uv run mypy
+        types: [python]
+        stages:
+          - pre-commit
+
+      - id: uv-lock
+        name: uv (lock)
+        description: Automatically run 'uv lock' on your project dependencies
+        entry: uv lock
+        language: system
+        files: ^(uv\.lock|pyproject\.toml|uv\.toml)$
+        pass_filenames: false
+
+      - id: uv-sync
+        name: uv (sync)
+        description: Automatically run 'uv sync' after pull, checkout and rebase
+        entry: uv sync --no-active --locked
+        language: system
+        always_run: true
+        pass_filenames: false
+        stages:
+          - post-checkout
+          - post-merge
+          - post-rewrite
 
