@@ -36,6 +36,45 @@ docs = [
     {% if app %}"mkdocs-click>=0.8.1",{% endif %}
 ]
 
+[tool.ruff]
+line-length = 120
+indent-width = 4
+target-version = "py310"
+
+[tool.ruff.lint]
+# enable all linter rules
+select = ["ALL"]
+ignore = [
+    "D104",     # missing docstring in public package
+    "D203",     # no blank line before class docstring
+    "D212",     # multi line summary on the first line of a docstring
+    "G004",     # f-string in logging
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+# especially when writing unit tests the UuT will be imported as package making
+# it a third party package.
+# To avoid this behaviour add the package as known first party...
+known-first-party = [
+    "{{snake}}"
+]
+
+# modules from the tests package (mocks etc.) should always be separated from
+# everything else.
+forced-separate = [
+    "tests"
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
 [tool.poe.tasks.lint]
 help = "Run code linters"
 ignore_fail = "return_non_zero"
