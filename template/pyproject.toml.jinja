@@ -118,4 +118,4 @@ cmd = "uv run scripts/bump.py"
 
 [tool.poe.tasks.docs]
 help = "Run mkdocs live preview server."
-cmd = "mkdocs serve --open"
+cmd = "uv run --group docs mkdocs serve --open"
