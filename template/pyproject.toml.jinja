@@ -42,6 +42,10 @@ convention = "conventional"
 provider = "github"
 output = "CHANGELOG.md"
 
+[tool.commitizen]
+version_provider="pep621"
+update_changelog_on_bump=false
+
 [tool.ruff]
 line-length = 120
 indent-width = 4
