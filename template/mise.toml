@@ -1,0 +1,3 @@
+[tools]
+"pipx:poethepoet" = "latest"
+uv = "latest"
