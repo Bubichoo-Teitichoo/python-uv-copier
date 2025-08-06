@@ -1,17 +1,20 @@
 # uv copier
 
-A Python project template with sensible defaults for [uv], build using [copier].
+A opinionated Python project template with sensible defaults, build using [copier].
 
 ## Prerequisites
 
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - [poe](https://poethepoet.natn.io/installation.html)
 
+alternatively, if you're using [mise](https://mise.jdx.dev/)
+the above tools will be installed on-damand.
+
 ## Features
 
 - linting, formatting and import sorting using [ruff]
-- static type checking using [mypy]
-- tasks with [poe]
+- static type checking with [mypy]
+- automation [tasks](#tasks) powered by [poe]
 - automatic version bumping and changelog generation with [commitizen] and [git-changelog]
 - pre-configured [uv], [ruff], [mypy] and more [pre-commit] hooks
 - pre-configured [mkdocs] documentation and API references powered by [mkdocstrings]
@@ -30,13 +33,13 @@ uvx --with copier-templates-extensions copier copy --trust https://github.com/Bu
 
 ## Tasks
 
-|     Name     |                       Description                          |
-|:------------:|:----------------------------------------------------------:|
-| `poe setup`  |   Create development environment and install commit hooks  |
-|  `poe lint`  |              Execute ruff and mypy linters                 |
-| `poe format` |               Format source code with ruff                 |
-|  `poe bump`  | Increment the projects version based on convention commits |
-|  `poe docs`  |     Build documentation and start a live preview server    |
+|     Name     |                        Description                           |
+|:------------:|:------------------------------------------------------------:|
+| `poe setup`  |    Create development environment and install commit hooks   |
+|  `poe lint`  |               Execute ruff and mypy linters                  |
+| `poe format` |                Format source code with ruff                  |
+|  `poe bump`  | Increment the projects version based on conventional commits |
+|  `poe docs`  |      Build documentation and start a live preview server     |
 
 
 [commitizen]: <https://commitizen-tools.github.io/commitizen/>
