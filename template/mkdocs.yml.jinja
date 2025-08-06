@@ -4,11 +4,21 @@ site_name: {{ name }}
 repo_name: {{ slug }}
 # repo_url: https://github.com/<your project URI>
 
+watch:
+  - .
+
+docs_dir: .
+exclude_docs: |
+    .github/
+    .venv/
+    scripts/
+    tests/
+
 nav:
-  - Home: index.md
+  - Home: README.md
   - References:
-    - CLI: references/cli.md
-    - API: references/api.md
+    - CLI: docs/references/cli.md
+    - API: docs/references/api.md
 
 extra:
   version:
@@ -54,6 +64,7 @@ theme:
 
 plugins:
 - search
+- same-dir
 {% if app %}- mkdocstrings{% endif %}
   
 markdown_extensions:
