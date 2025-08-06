@@ -90,10 +90,13 @@ indent-style = "space"
 python_version = "3.10"
 check_untyped_defs = true
 
+[tool.poe]
+executor = simple
+
 [tool.poe.tasks.setup]
 help = "Setup the development environment"
 sequence = [
-    { cmd = "uv sync" },
+    { cmd = "uv sync --frozen" },
     { cmd = "uv run pre-commit install" },
 ]
 
@@ -101,22 +104,22 @@ sequence = [
 help = "Run code linters"
 ignore_fail = "return_non_zero"
 sequence = [
-    { cmd = "uv run ruff check src" },
-    { cmd = "uv run ruff format src --check" },
-    { cmd = "uv run mypy src" },
+    { cmd = "uv run --frozen ruff check src" },
+    { cmd = "uv run --frozen ruff format src --check" },
+    { cmd = "uv run --frozen mypy src" },
 ]
 
 [tool.poe.tasks.format]
 help = "Run code formatters"
 sequence = [
-    { cmd = "uv run ruff format src" },
-    { cmd = "uv run ruff check src --select I --fix" },
+    { cmd = "uv run --frozen ruff format src" },
+    { cmd = "uv run --frozen ruff check src --select I --fix" },
 ]
 
 [tool.poe.tasks.bump]
 help = "Bump version"
-cmd = "uv run scripts/bump.py"
+cmd = "uv run --frozen scripts/bump.py"
 
 [tool.poe.tasks.docs]
 help = "Run mkdocs live preview server."
-cmd = "uv run --group docs mkdocs serve --open"
+cmd = "uv run --frozen --group docs mkdocs serve --open"
