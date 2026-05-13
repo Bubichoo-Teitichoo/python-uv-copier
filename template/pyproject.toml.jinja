@@ -6,14 +6,14 @@ build-backend = "uv_build"
 name = "{{ slug }}"
 version = "0.1.0"
 description = "{{ description }}"
+readme = "README.md"
+license = { text = "MIT" }
 authors = [
     {name = "{{ user }}", email = "{{ email }}"},
 ]
+requires-python = ">=3.10,<3.14"
 dependencies = [
 ]
-requires-python = ">=3.10,<3.14"
-readme = "README.md"
-license = { text = "MIT" }
 
 [project.scripts]
 {{slug}} = "{{snake}}.__main__:main"
