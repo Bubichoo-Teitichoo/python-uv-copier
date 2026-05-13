@@ -17,7 +17,6 @@ exclude_docs: |
 nav:
   - Home: README.md
   - References:
-    - CLI: docs/references/cli.md
     - API: docs/references/api.md
 
 extra:
@@ -65,7 +64,7 @@ theme:
 plugins:
 - search
 - same-dir
-{% if app %}- mkdocstrings{% endif %}
+- mkdocstrings
   
 markdown_extensions:
 
@@ -76,7 +75,6 @@ markdown_extensions:
   - def_list
   - footnotes
   - md_in_html
-{% if app %}  - mkdocs-click{% endif %}
   - toc:
       permalink: true
 
