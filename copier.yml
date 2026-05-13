@@ -40,3 +40,9 @@ email:
   type: str
   help: Author's e-Mail
   default: "{{ git_mail() }}"
+
+_tasks:
+  - "git init"
+  - "git add ."
+  - "git commit -m 'Initial commit'"
+  - "mise setup"
