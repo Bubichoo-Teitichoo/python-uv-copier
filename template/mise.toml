@@ -1,3 +1,48 @@
 [tools]
-"pipx:poethepoet" = "latest"
-uv = "latest"
+"github:facebook/pyrefly" = "1.0"
+prek = "0.3"
+ruff = "0.15"
+uv = "0.11"
+
+[tasks.setup]
+description = "Setup the development environment"
+run = [
+    "uv sync --frozen",
+    "prek install --install-hooks",
+]
+
+[tasks.ruff-check]
+description = "Lint codebase using ruff"
+run = "ruff check src tests"
+
+[tasks.ruff-check-imports]
+description = "Check import sorting order using ruff"
+run = """ruff format src tests --check --config 'lint.ignore=["COM812"]'"""
+
+[tasks.pyrefly-check]
+description = "Static type checking using pyrefly"
+run = "pyrefly check src tests"
+
+[tasks.lint]
+description = "Run code linters"
+depends = [
+    "ruff-check",
+    "ruff-check-imports",
+    "pyrefly-check",
+]
+run = []
+
+[tasks.format]
+description = "Run code formatters"
+run = [
+    """ruff format src tests --config 'lint.ignore=["COM812"]'""",
+    "ruff check src --select I --fix",
+]
+
+[tasks.bump]
+description = "Bump version"
+run = "uv run --frozen scripts/bump.py"
+
+[tasks.docs]
+description = "Run mkdocs live preview server."
+run = "uv run --frozen --group docs mkdocs serve --open"
