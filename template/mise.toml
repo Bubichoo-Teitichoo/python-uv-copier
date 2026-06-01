@@ -11,33 +11,33 @@ run = [
     "prek install --install-hooks",
 ]
 
-[tasks.ruff-check]
+[tasks."lint:code"]
 description = "Lint codebase using ruff"
 run = "ruff check src tests"
 
-[tasks.ruff-check-imports]
+[tasks."lint:format"]
 description = "Check import sorting order using ruff"
 run = """ruff format src tests --check --config 'lint.ignore=["COM812"]'"""
 
-[tasks.pyrefly-check]
+[tasks."lint:typing"]
 description = "Static type checking using pyrefly"
 run = "pyrefly check src tests"
 
 [tasks.lint]
 description = "Run code linters"
-depends = [
-    "ruff-check",
-    "ruff-check-imports",
-    "pyrefly-check",
-]
+depends = ["lint:*"]
 run = []
+
+[tasks."format:code"]
+run = """ruff format src tests --config 'lint.ignore=["COM812"]'"""
+
+[tasks."format:imports"]
+run = "ruff check src tests --select I --fix"
 
 [tasks.format]
 description = "Run code formatters"
-run = [
-    """ruff format src tests --config 'lint.ignore=["COM812"]'""",
-    "ruff check src --select I --fix",
-]
+depends = ["format:*"]
+run = []
 
 [tasks.bump]
 description = "Bump version"
