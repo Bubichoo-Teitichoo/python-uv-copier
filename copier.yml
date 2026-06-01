@@ -42,6 +42,7 @@ email:
   default: "{{ git_mail() }}"
 
 _tasks:
+  - "uv lock"
   - "git init"
   - "git add ."
   - "git commit -m 'Initial commit'"
